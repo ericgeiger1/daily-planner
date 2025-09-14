@@ -1,5 +1,7 @@
 ﻿# Monthly Overview â€” Recovery Theme
 
+> Sobriety: 1188 days | 28512 hours | 39 months
+
 Month: September   Year: 2025   Step: 9 / 12
 
 ## AA Step Theme

@@ -53,8 +53,13 @@ if (Test-Path $configPath) {
             $days = [math]::Floor($span.TotalDays)
             $hours = [math]::Floor($span.TotalHours)
             $months = [math]::Floor($span.TotalDays / 30.44)
-            $badge = "\n> Sobriety: ${days} days • ${hours} hours • ${months} months\n"
-            $content = $content -replace "^# Monthly Overview — Recovery Theme\n", ("# Monthly Overview — Recovery Theme$badge")
+            $badge = "`n> Sobriety: ${days} days | ${hours} hours | ${months} months`n"
+            $nlIndex = $content.IndexOf("`n")
+            if ($nlIndex -ge 0) {
+                $content = $content.Insert($nlIndex + 1, $badge)
+            } else {
+                $content = $badge + $content
+            }
         }
     } catch { }
 }

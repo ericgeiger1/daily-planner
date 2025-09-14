@@ -34,8 +34,14 @@ if (Test-Path $configPath) {
             $hours = [math]::Floor($span.TotalHours)
             # Months (approximate by 30.44 days, average month length)
             $months = [math]::Floor($span.TotalDays / 30.44)
-            $badge = "\n> Sobriety: ${days} days • ${hours} hours • ${months} months\n"
-            $content = $content -replace "^# Daily Planner — Recovery Theme\n", ("# Daily Planner — Recovery Theme$badge" )
+             $badge = "`n> Sobriety: ${days} days | ${hours} hours | ${months} months`n"
+             # Insert badge after the first line without relying on Unicode or regex
+             $nlIndex = $content.IndexOf("`n")
+             if ($nlIndex -ge 0) {
+                 $content = $content.Insert($nlIndex + 1, $badge)
+             } else {
+                 $content = $badge + $content
+             }
         }
     } catch { }
 }
