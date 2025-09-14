@@ -22,5 +22,23 @@ $outFile = Join-Path $dir ("${year}-${month}-${day}.md")
 $content = Get-Content $templatePath -Raw
 $content = $content -replace 'Date: ____________   Day: ____________', ("Date: {0}   Day: {1}" -f $Date.ToString('yyyy-MM-dd'), $weekday)
 
+# Insert sobriety counters if config exists
+$configPath = Join-Path $root ".planner\config.json"
+if (Test-Path $configPath) {
+    try {
+        $cfg = Get-Content $configPath -Raw | ConvertFrom-Json
+        if ($cfg.RecoveryDate) {
+            $rd = [datetime]::Parse($cfg.RecoveryDate, [System.Globalization.CultureInfo]::InvariantCulture)
+            $span = $Date - $rd
+            $days = [math]::Floor($span.TotalDays)
+            $hours = [math]::Floor($span.TotalHours)
+            # Months (approximate by 30.44 days, average month length)
+            $months = [math]::Floor($span.TotalDays / 30.44)
+            $badge = "\n> Sobriety: ${days} days • ${hours} hours • ${months} months\n"
+            $content = $content -replace "^# Daily Planner — Recovery Theme\n", ("# Daily Planner — Recovery Theme$badge" )
+        }
+    } catch { }
+}
+
 Set-Content -Path $outFile -Value $content -Encoding utf8
 Write-Host "Created: $outFile"

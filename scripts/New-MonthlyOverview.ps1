@@ -42,5 +42,22 @@ $outFile = Join-Path $dir ("${year}-${month}-overview.md")
 $content = Get-Content $templatePath -Raw
 $content = $content -replace 'Month: ____________   Year: ____________   Step: ____ \/ 12', ("Month: {0}   Year: {1}   Step: {2} / 12" -f $monthName, $year, $step)
 
+# Insert sobriety counters if config exists
+$configPath = Join-Path $root ".planner\config.json"
+if (Test-Path $configPath) {
+    try {
+        $cfg = Get-Content $configPath -Raw | ConvertFrom-Json
+        if ($cfg.RecoveryDate) {
+            $rd = [datetime]::Parse($cfg.RecoveryDate, [System.Globalization.CultureInfo]::InvariantCulture)
+            $span = $dt - $rd
+            $days = [math]::Floor($span.TotalDays)
+            $hours = [math]::Floor($span.TotalHours)
+            $months = [math]::Floor($span.TotalDays / 30.44)
+            $badge = "\n> Sobriety: ${days} days • ${hours} hours • ${months} months\n"
+            $content = $content -replace "^# Monthly Overview — Recovery Theme\n", ("# Monthly Overview — Recovery Theme$badge")
+        }
+    } catch { }
+}
+
 Set-Content -Path $outFile -Value $content -Encoding utf8
 Write-Host "Created: $outFile"

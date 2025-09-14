@@ -9,6 +9,16 @@ These scripts materialize Markdown pages from the templates in `docs/templates`.
     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
     ```
 
+## Privacy & Local Config
+- This project is privacy-first. No central database; everything stays on your machine.
+- Personal config is stored in `.planner/` (gitignored) so it is never committed.
+
+### Set your Recovery Date (optional)
+```powershell
+./scripts/Set-RecoveryDate.ps1 -Date '2020-01-01'
+```
+Generated pages will display a sobriety snapshot (days • hours • months) at the top.
+
 ## Scripts
 - `scripts/New-DailyPlannerPage.ps1`
   - Args:

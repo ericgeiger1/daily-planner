@@ -7,6 +7,8 @@ A supportive, recovery-aligned daily planner grounded in the 12 Steps of Alcohol
 - Daily page with Morning Plan and Nightly Review.
 - Monthly overview themed to a specific AA Step (1–12) with brief guidance and a focus prompt.
 - Printable and digital-friendly Markdown templates.
+ - Privacy-first: no central database; all data remains local.
+ - Optional sobriety counters: display days/hours/months since recovery date.
 
 ## Personas
 - Person in recovery seeking structure, gratitude, and step-based focus.
@@ -64,13 +66,28 @@ A supportive, recovery-aligned daily planner grounded in the 12 Steps of Alcohol
 - Daily template includes all Morning Plan and Nightly Review sections with clear headings and bullet/checkbox lists ready for use.
 - Monthly template includes Step theme and trackers, and can be reused for any month.
 - Files render cleanly in GitHub/Markdown viewers and are printable to PDF.
+ - A local-only configuration holds the recovery date; sobriety counters (days, hours, months) can be injected into generated pages.
 
 ## Non-Goals (for now)
 - Mobile/desktop app UI
 - Sync or data persistence beyond files
 - Analytics
+ - Cloud databases or remote storage of personal entries
 
 ## Future Enhancements
 - Optional tooling to auto-generate daily/monthly pages.
 - Simple static site rendering for printing/export.
 - Internationalization.
+ - Optional encryption-at-rest for local files (e.g., OS-native secure storage).
+
+## Privacy & Local-First
+- No central servers or shared databases; user retains full control.
+- Configuration (e.g., recovery date) stored under `.planner/` and excluded from git.
+- Users opt-in to sobriety counters; values are computed locally at generation time.
+
+## Sobriety Counters
+- Recovery Date: user-provided local date.
+- Counters displayed in pages: days sober, hours sober (approximate), months sober (calendar or 30-day average configurable later).
+- Placement:
+  - Daily Page: top of Morning Plan (affirmation block)
+  - Monthly Overview: beneath Step theme header
