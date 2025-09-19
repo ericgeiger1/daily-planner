@@ -2,8 +2,24 @@ Param(
     [Parameter(Mandatory=$true)][string]$Date
 )
 $ErrorActionPreference = "Stop"
-$repoRoot = Split-Path -Parent $PSCommandPath
-$root = Resolve-Path (Join-Path $repoRoot "..")
+
+# Function to find repository root by looking for .git directory
+function Get-RepoRoot {
+    param([string]$StartPath = $PSCommandPath)
+    
+    $currentPath = Split-Path -Parent $StartPath
+    while ($currentPath -and $currentPath -ne (Split-Path -Parent $currentPath)) {
+        if (Test-Path (Join-Path $currentPath ".git")) {
+            return $currentPath
+        }
+        $currentPath = Split-Path -Parent $currentPath
+    }
+    
+    # Fallback to script parent directory if .git not found
+    return Split-Path -Parent $PSCommandPath | Split-Path -Parent
+}
+
+$root = Get-RepoRoot
 $configDir = Join-Path $root ".planner"
 New-Item -ItemType Directory -Force -Path $configDir | Out-Null
 $configFile = Join-Path $configDir "config.json"

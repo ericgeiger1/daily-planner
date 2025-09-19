@@ -1,0 +1,50 @@
+{
+  "name": "daily-planner",
+  "version": "1.0.0",
+  "description": "A privacy-first daily planner with PowerShell generators, Express API, and React Native mobile app",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "mobile": "expo start",
+    "mobile:android": "expo start --android",
+    "mobile:ios": "expo start --ios",
+    "test": "jest",
+    "build": "npm run build:web",
+    "build:web": "npm run build:api && npm run build:frontend",
+    "build:api": "echo 'API build placeholder'",
+    "build:frontend": "echo 'Frontend build placeholder'"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "date-fns": "^2.30.0",
+    "date-fns-tz": "^2.0.0",
+    "expo": "~49.0.0",
+    "expo-status-bar": "~1.6.0",
+    "react": "18.2.0",
+    "react-native": "0.72.6",
+    "react-native-paper": "^5.10.6",
+    "expo-secure-store": "~12.3.1",
+    "@react-navigation/native": "^6.1.7",
+    "@react-navigation/stack": "^6.3.17",
+    "react-native-screens": "~3.22.0",
+    "react-native-safe-area-context": "4.6.3",
+    "react-native-gesture-handler": "~2.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.7.0",
+    "@babel/core": "^7.20.0",
+    "babel-preset-expo": "~9.5.0"
+  },
+  "keywords": ["daily-planner", "productivity", "recovery", "markdown"],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ericgeiger1/daily-planner.git"
+  }
+}
